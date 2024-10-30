@@ -25,9 +25,6 @@ EOL
 
 echo "Configuration created at $CONFIG_PATH"
 
-# Start Shadowsocks
-echo "Starting Shadowsocks server..."
-ss-server -c $CONFIG_PATH
 
 # Download ngrok if not already installed
 NGROK_PATH="/usr/local/bin/ngrok"
@@ -40,6 +37,10 @@ fi
 # Prompt for ngrok auth token
 read -p "Enter your ngrok auth token: " NGROK_TOKEN
 $NGROK_PATH authtoken $NGROK_TOKEN
+
+# Start Shadowsocks
+echo "Starting Shadowsocks server..."
+ss-server -c $CONFIG_PATH &
 
 # Start ngrok with Shadowsocks server
 echo "Starting ngrok for port $SERVER_PORT..."
